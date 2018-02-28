@@ -38,15 +38,24 @@ public class Conexao {
 
             int status = stmt.executeUpdate();
             System.out.println("Status: " + status);
+
+            conn.close();
         }
     }
 
     public void atualizar() throws ClassNotFoundException, SQLException {
-
+        
     }
 
     public void excluir() throws ClassNotFoundException, SQLException {
+        try (Connection conn = obterConexao();
+                PreparedStatement stmt = conn.prepareStatement(
+                        "DELETE FROM PRODUTO WHERE id = ? ")) {
+            stmt.setString(1, "id");
+            stmt.executeUpdate();
 
+            conn.close();
+        }
     }
 
 }
