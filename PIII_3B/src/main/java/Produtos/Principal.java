@@ -75,7 +75,7 @@ public class Principal {
                     } catch (SQLException ex) {
                         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
+                    break;
                 }
                 case 7: {
                     on = true;
