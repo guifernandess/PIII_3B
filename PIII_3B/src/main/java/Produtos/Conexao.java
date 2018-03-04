@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Produto;
+package Produtos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,16 +25,16 @@ public class Conexao {
         return conn;
     }
 
-    public void incluir() throws ClassNotFoundException, SQLException {
+    public void adicionar(Produto p) throws ClassNotFoundException, SQLException {
         try (Connection conn = obterConexao();
                 PreparedStatement stmt = conn.prepareStatement(
                         "INSERT INTO PRODUTO (nome, descricao, preco_compra, preco_venda, quantidade)"
                         + "VALUES (?,?,?,?,?) ")) {
-            stmt.setString(1, "nome");
-            stmt.setString(2, "descricao");
-            stmt.setString(3, "preco_compra");
-            stmt.setString(4, "preco_venda");
-            stmt.setString(5, "quantidade");
+            stmt.setString(1, p.getNome());
+            stmt.setString(2, p.getDescricao());
+            stmt.setDouble(3, p.getPrecoCompra());
+            stmt.setDouble(4, p.getPrecoVenda());
+            stmt.setInt(5, p.getQuantidade());
 
             int status = stmt.executeUpdate();
             System.out.println("Status: " + status);
@@ -43,8 +43,20 @@ public class Conexao {
         }
     }
 
+    public void adicionarCategoria(String categ) throws ClassNotFoundException, SQLException {
+        Connection conn = obterConexao();
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO CATEGORIA (nome)"
+                + "VALUES (?)");
+        stmt.setString(1, categ);
+        int status = stmt.executeUpdate();
+        System.out.println("Status: " + status);
+
+        conn.close();
+
+    }
+
     public void atualizar() throws ClassNotFoundException, SQLException {
-        
+
     }
 
     public void excluir() throws ClassNotFoundException, SQLException {
