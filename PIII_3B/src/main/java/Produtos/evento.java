@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Matheus Maia
+ * @author Vitoria Cristina
  */
 public class evento {
     
@@ -26,4 +26,11 @@ public class evento {
         conn.adicionarCategoria(categ);
         System.out.println("Categoria Inserida!");
     }
+    
+    public void excluirProduto(String p) throws ClassNotFoundException, SQLException{
+        Conexao con = new Conexao();
+        con.excluir();
+        System.out.println("Produto excluido com sucesso! ");
+    }
 }
+

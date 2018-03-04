@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Matheus Maia
+ * @author Vitoria Cristina
  */
 public class Principal {
 
@@ -21,10 +21,11 @@ public class Principal {
         while (on == false) {
             System.out.println("1 - Adicionar um produto");
             System.out.println("2 - Criar uma nova categoria de produto");
+            System.out.println("3 - Excluir um produto");
             System.out.println("7 - Sair");
-            
+
             opc = console.nextInt();
-            switch (opc){
+            switch (opc) {
                 case 1: {
                     System.out.print("Digite o nome do novo produto: ");
                     String nome = console.next();
@@ -36,32 +37,50 @@ public class Principal {
                     double precVenda = console.nextDouble();
                     System.out.print("Agora, por ultimo, digite a quantidade: ");
                     int qtdPro = console.nextInt();
-                    
-                    Produto p = new Produto();
-                    p.setNome(nome); p.setDescricao(descr); p.setPrecoCompra(precCompra);
-                    p.setPrecoVenda(precVenda); p.setQuantidade(qtdPro);
-                    evento ev = new evento();
-                try {
-                    ev.inserir(p);
-                } catch (ClassNotFoundException | SQLException ex) {
-                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                   
 
-                } break;
+                    Produto p = new Produto();
+                    p.setNome(nome);
+                    p.setDescricao(descr);
+                    p.setPrecoCompra(precCompra);
+                    p.setPrecoVenda(precVenda);
+                    p.setQuantidade(qtdPro);
+                    evento ev = new evento();
+                    try {
+                        ev.inserir(p);
+                    } catch (ClassNotFoundException | SQLException ex) {
+                        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+                break;
                 case 2: {
                     System.out.print("Digite o nome da nova categoria: ");
                     String categ = console.next();
                     evento ev = new evento();
-                try {
-                    ev.inserirCategoria(categ);
-                } catch (ClassNotFoundException | SQLException ex) {
-                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                    try {
+                        ev.inserirCategoria(categ);
+                    } catch (ClassNotFoundException | SQLException ex) {
+                        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-                } break;
+                break;
+                case 3: {
+                    System.out.println("Digite o nome do produto á ser excluido: ");
+                    String descr = console.next();
+                    evento ev = new evento();
+                    try {
+                        ev.excluirProduto(descr);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
                 case 7: {
                     on = true;
-                } break;
+                }
+                break;
             }
         }
 
