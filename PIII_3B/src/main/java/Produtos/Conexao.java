@@ -40,22 +40,51 @@ public class Conexao {
             System.out.println("Status: " + status);
 
             conn.close();
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.err.println(ex.getMessage());
         }
     }
 
     public void adicionarCategoria(String categ) throws ClassNotFoundException, SQLException {
-        Connection conn = obterConexao();
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO CATEGORIA (nome)"
-                + "VALUES (?)");
-        stmt.setString(1, categ);
-        int status = stmt.executeUpdate();
-        System.out.println("Status: " + status);
+        try {
+            Connection conn = obterConexao();
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO CATEGORIA (nome)"
+                    + "VALUES (?)");
+            stmt.setString(1, categ);
+            int status = stmt.executeUpdate();
+            System.out.println("Status: " + status);
 
-        conn.close();
+            conn.close();
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.err.println(ex.getMessage());
+        }
 
     }
 
-    public void atualizar() throws ClassNotFoundException, SQLException {
+    public void atualizar(Produto P) throws ClassNotFoundException, SQLException {
+        try {
+            Connection conn = obterConexao();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE PRODUTO SET "
+                    + "nome = ?,descricao =?, preco_compra=?, preco_venda=?, quantidade=?"
+                    + "FROM PRODUTO WHERE ID = ?");
+            stmt.setString(1, P.getNome());
+            stmt.setString(2, P.getDescricao());
+            stmt.setDouble(3, P.getPrecoCompra());
+            stmt.setDouble(4, P.getPrecoVenda());
+            stmt.setInt(5, P.getQuantidade());
+            stmt.setLong(6, P.getId());
+            stmt.executeUpdate();
+            conn.close();
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.err.println(ex.getMessage());
+        }
 
     }
 
@@ -67,6 +96,10 @@ public class Conexao {
             stmt.executeUpdate();
 
             conn.close();
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.err.println(ex.getMessage());
         }
     }
 
