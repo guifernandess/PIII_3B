@@ -69,11 +69,11 @@ public class Principal {
                 }
                 break;
                 case 3: {
-                    System.out.println("Digite o nome do produto á ser excluido: ");
-                    String descr = console.next();
+                    System.out.println("Digite o id do produto á ser excluido: ");
+                    int id = console.nextInt();
                     evento ev = new evento();
                     try {
-                        ev.excluirProduto(descr);
+                        ev.excluirProduto(id);
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (SQLException ex) {
@@ -94,8 +94,8 @@ public class Principal {
                             p = lista.get(i);
                             String nomeProduto = p.getNome();
                             long Id = p.getId();
-                            System.out.println("IdProduto: " + Id);
-                            System.out.println("Produto: " + nomeProduto);
+                            System.out.println("IdProduto: " + Id + ", Produto: " + nomeProduto);
+                           
 
                         }
 
@@ -112,7 +112,10 @@ public class Principal {
                     int id = console.nextInt();
                     evento ev = new evento();
                     Produto p = new Produto();
+                 //   Produto valida = new Produto();
+                 //   valida = ev.Obter(id);
                     try {
+                        
                         p = ev.Obter(id);
                         System.out.println("Digite o nome do produto: ");
                         String Nome = console.next();
@@ -131,8 +134,8 @@ public class Principal {
                         p.setPrecoVenda(precoVenda);
                         p.setQuantidade(quantidade);
 
-                        ev.AtualizaProduto(p);
-                        System.out.println("Produto Atualizado com sucesso");
+                        ev.AtualizaProduto(p); 
+  
 
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);

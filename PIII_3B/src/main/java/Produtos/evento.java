@@ -30,10 +30,15 @@ public class evento {
         System.out.println("Categoria Inserida!");
     }
 
-    public void excluirProduto(String p) throws ClassNotFoundException, SQLException {
+    public void excluirProduto(int id) throws ClassNotFoundException, SQLException {
         Conexao con = new Conexao();
-        con.excluir();
+    try{
+        con.excluir(id);
         System.out.println("Produto excluido com sucesso! ");
+    } catch (Exception e) {
+        System.out.println("id não encontrado");
+    }
+        
     }
 
     public void AtualizaProduto(Produto p) throws ClassNotFoundException, SQLException {
@@ -47,13 +52,15 @@ public class evento {
         Produto p = new Produto();
         
         try {
+            if( con.obter(id) == null){
+                System.out.println("Digite um id valido");
+              return null;  
+            }
             p = con.obter(id);
+            return p;
         } catch (Exception ex) {
             Logger.getLogger(evento.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return p;
-        
-        
+        } return null;  
     }
 
     public List<Produto> pesquisar(String p) throws ClassNotFoundException, SQLException {
@@ -64,7 +71,7 @@ public class evento {
             List<Produto> lista = new ArrayList<Produto>();
 
             lista = con.procurar(p);
-            System.out.println("Produto atualizado com sucesso! ");
+ 
 
             return lista;
 

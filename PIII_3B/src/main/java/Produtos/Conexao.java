@@ -25,7 +25,7 @@ public class Conexao {
         Class.forName("com.mysql.jdbc.Driver");
 
         Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/test", "planejamento", "ccash01");
+                    "jdbc:mysql://localhost:3306/produtobd", "root", "");
         return conn;
     }
 
@@ -73,9 +73,9 @@ public class Conexao {
     public void atualizar(Produto P) throws ClassNotFoundException, SQLException {
         try {
             Connection conn = obterConexao();
-            PreparedStatement stmt = conn.prepareStatement("UPDATE PRODUTO SET "
-                    + "nome = ?,descricao =?, preco_compra=?, preco_venda=?, quantidade=?"
-                    + "FROM PRODUTO WHERE ID = ?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE PRODUTOBD.PRODUTO SET "
+                    + "nome = ?, descricao = ?, preco_compra= ?, preco_venda= ?, quantidade= ?"
+                    + " WHERE ID = ? ");
             stmt.setString(1, P.getNome());
             stmt.setString(2, P.getDescricao());
             stmt.setDouble(3, P.getPrecoCompra());
@@ -92,16 +92,18 @@ public class Conexao {
 
     }
 
-    public void excluir() throws ClassNotFoundException, SQLException {
+    public void excluir(int id) throws ClassNotFoundException, SQLException {
         try (Connection conn = obterConexao();
+                
                 PreparedStatement stmt = conn.prepareStatement(
-                        "DELETE FROM PRODUTO WHERE id = ? ")) {
-            stmt.setString(1, "id");
+                        "DELETE FROM PRODUTOBD.PRODUTO WHERE id = ? ")) {
+            stmt.setInt(1, id);
             stmt.executeUpdate();
 
             conn.close();
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
+            
         } catch (ClassNotFoundException ex) {
             System.err.println(ex.getMessage());
         }
@@ -109,7 +111,7 @@ public class Conexao {
     
      public List<Produto> procurar(String valor) throws SQLException, Exception {
 
-        String sql = "SELECT * FROM PRODUTO WHERE ((UPPER(nome) LIKE UPPER(?) ";
+        String sql = "SELECT * FROM PRODUTOBD.PRODUTO WHERE UPPER(nome) LIKE UPPER(?) ";
         //Lista de clientes de resultado
         List<Produto> listaProdutos = null;
         //Conexão para abertura e fechamento
@@ -171,7 +173,7 @@ public class Conexao {
             throws SQLException, Exception {
         //Compõe uma String de consulta que considera apenas o cliente
         //com o ID informado e que esteja ativo ("enabled" com "true")
-        String sql = "SELECT * FROM Produto WHERE (cliente_id=?)";
+        String sql = "SELECT * FROM PRODUTOBD.PRODUTO WHERE (id=?)";
 
         //Statement para obtenção através da conexão, execução de
         //comandos SQL e fechamentos
@@ -186,10 +188,11 @@ public class Conexao {
             preparedStatement = conn.prepareStatement(sql);
             //Configura os parâmetros do "PreparedStatement"
             preparedStatement.setInt(1, id);            
-            preparedStatement.setBoolean(2, true);
             
             //Executa a consulta SQL no banco de dados
             result = preparedStatement.executeQuery();
+            
+            
             
             //Verifica se há pelo menos um resultado
             if (result.next()) {                
