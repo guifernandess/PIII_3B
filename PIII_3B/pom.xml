@@ -5,16 +5,40 @@
     <artifactId>PIII_3B</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    
+    <organization>
+        <name> Senac TADS PI3- ADO1 - GRUPO POG </name>
+    </organization>
+    <developers>
+        <developer>
+            <name> Vitoria Cristina</name>
+        </developer>
+        <developer>  
+            <name> Matheus Maia</name>
+        </developer>
+        <developer>  
+            <name> Rodrigo Avelino</name>
+        </developer>
+            <developer>  
+            <name> Guilherme Fernandes</name>
+        </developer>
+            <developer>  
+            <name> Victor Galvão</name>
+        </developer>
+        
+        </developers>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    
     <dependencies>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.45</version>
-        </dependency>
+    <dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>5.1.45</version>
+    </dependency>
     </dependencies>
+  
 </project>
